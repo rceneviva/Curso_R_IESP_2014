@@ -29,6 +29,13 @@ setwd("~/Dropbox/iesp_uerj/escola_inverno/asdar_2014/")
 # data for the laurel tree (Laurus nobilis) from the Global
 # Biodiversity Information Facility (GBIF)
 
+
+library("maps")
+library("maptools")
+library("sp")
+library("rgdal")
+gpclibPermit()
+library("XML")
 library("dismo")
 library("rgbif")      # check also the nice "rgbif" package 
 laurus <- gbif("Laurus", "nobilis")
@@ -135,3 +142,27 @@ PlotOnStaticMap(mymap, lat = locs.gb.coords$lat,
                 cex = 1.3, pch = 19, col = "red", 
                 FUN = points, add = FALSE)
 
+
+## Mudando o plano de fundo do Mapa (Map base)
+
+mymap <- GetMap.bbox(map.lim$lonR, map.lim$latR, 
+                     destfile = "gmap.png", maptype = "hybrid")
+
+#plotando o novo mapa
+PlotOnStaticMap(mymap, lat = locs.gb.coords$lat, 
+                lon = locs.gb.coords$lon, zoom = NULL, 
+                cex = 1.3, pch = 19, col = "red", 
+                FUN = points, add = F)
+
+
+# NAO FUNCIONA !!! ##
+#####################
+
+## Plot Map vectorial data with googleVis (internet)
+
+points.gb <- as.data.frame(locs.gb)
+points.gb$latlon <- paste(points.gb$lat, points.gb$lon, sep=":")
+map.gb <- gvisMap(points.gb, locationvar="latlon", tipvar="country", 
+                  options = list(showTip=T, showLine=F, enableScrollWheel=TRUE,
+                                 useMapTypeControl=T, width=1400,height=800))
+plot(map.gb)

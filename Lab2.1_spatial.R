@@ -283,7 +283,7 @@ CRAN_spdf3 <- SpatialPointsDataFrame(CRAN_mat,
 getClass("SpatialPointsDataFrame")
 
 # The Spatial*DataFrame classes have been designed to 
-# behave as far as possi- ble like data frames, both 
+# behave as far as possi-ble like data frames, both 
 # with respect to standard methods such as names, and
 # more demanding modelling functions like model.frame 
 # used in very many model fitting functions using formula
